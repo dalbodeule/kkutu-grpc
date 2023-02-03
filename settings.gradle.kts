@@ -9,4 +9,4 @@
 
 rootProject.name = "OnlineJudge"
 
-include("Backend", "protobuf") //, "Frontend", "JudgeEngine")
+include("Backend", "protobuf", "Frontend") // "JudgeEngine")

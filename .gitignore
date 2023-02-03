@@ -16,3 +16,13 @@ gradle-app.setting
 # Ignore Gradle build output directory
 build
 bin/
+
+node_modules
+*.log*
+.nuxt
+.nitro
+.cache
+.output
+.env
+.yarn
+dist
