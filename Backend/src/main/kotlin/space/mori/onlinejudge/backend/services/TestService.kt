@@ -5,8 +5,8 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.withContext
-import space.mori.onlinejudge.proto.Test
-import space.mori.onlinejudge.proto.TestServiceGrpcKt
+import space.mori.onlinejudge.protobuf.Test
+import space.mori.onlinejudge.protobuf.TestServiceGrpcKt
 
 class TestService: TestServiceGrpcKt.TestServiceCoroutineImplBase() {
     override suspend fun sayHello(request: Test.HelloRequest): Test.HelloResponse {

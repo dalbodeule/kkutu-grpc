@@ -1,0 +1,64 @@
+plugins {
+    id 'java'
+    id 'com.google.protobuf'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 8
+targetCompatibility = 8
+
+dependencies {
+    implementation "com.google.protobuf:protobuf-java:3.7.0"
+    implementation "io.grpc:grpc-stub:1.52.1"
+    implementation "io.grpc:grpc-protobuf:1.52.1"
+}
+
+sourceSets {
+    main {
+        proto {
+            srcDir "src/main/proto"
+        }
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.21.12"
+    }
+    plugins {
+        grpc_cpp {
+            path = "C:\\tools\\vcpkg\\installed\\x64-windows\\tools\\grpc\\grpc_cpp_plugin.exe"
+        }
+    }
+    generateProtoTasks {
+        generatedFilesBaseDir = "${buildDir}/build/generated/src"
+        all()*.builtins {
+            cpp { }
+        }
+        all()*.plugins {
+            grpc_cpp {
+                outputSubDir = 'cpp'
+            }
+        }
+    }
+}
+
+clean {
+    delete protobuf.generatedFilesBaseDir
+}
+
+// Used to find executables for generating C++ and Java gRPC
+static def getPluginPath(name) {
+    def path = "which grpc_${name}_plugin".execute()
+    path.waitFor()
+    path = path.in.text.trim()
+    if (!path) {
+        println "Failed to locate GRPC plugin for ${name}"
+    } else {
+        println "Found GRPC plugin for ${name} at ${path}"
+    }
+    return path
+}

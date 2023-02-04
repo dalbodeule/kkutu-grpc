@@ -9,4 +9,11 @@
 
 rootProject.name = "OnlineJudge"
 
-include("Backend", "protobuf", "Frontend") // "JudgeEngine")
+include("Backend", "protobuf", "protobuf:cpp", "Frontend", "JudgeEngine")
+
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}

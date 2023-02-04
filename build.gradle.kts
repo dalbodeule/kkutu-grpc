@@ -30,24 +30,28 @@ allprojects {
     }
 }
 
+val kotlinProjects = setOf("Backend", "Frontend")
+
 subprojects {
-    apply(plugin = "kotlin")
-    apply(plugin = "application")
-    apply(plugin = "java-library")
+    if (kotlinProjects.contains(project.name)) {
+        apply(plugin = "kotlin")
+        apply(plugin = "application")
+        apply(plugin = "java-library")
 
-    group = "${parent?.group}"
-    version = "${parent?.version}"
+        group = "${parent?.group}"
+        version = "${parent?.version}"
 
-    repositories {
-        mavenCentral()
-    }
+        repositories {
+            mavenCentral()
+        }
 
-    dependencies {
-        implementation(kotlin("stdlib-jdk8"))
-        implementation("org.apache.logging.log4j:log4j-core:2.18.0")
-    }
+        dependencies {
+            implementation(kotlin("stdlib-jdk8"))
+            implementation("org.apache.logging.log4j:log4j-core:2.18.0")
+        }
 
-    tasks.test {
-        useJUnitPlatform()
+        tasks.test {
+            useJUnitPlatform()
+        }
     }
 }

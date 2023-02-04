@@ -1,5 +1,5 @@
+
 import com.github.gradle.node.npm.task.NpmTask
-import com.github.gradle.node.yarn.task.YarnInstallTask
 import com.github.gradle.node.yarn.task.YarnTask
 
 plugins {
@@ -15,6 +15,7 @@ configurations {
 
 node {
     version.set("19.5.0")
+    nodeProjectDir.set(file("${projectDir}/src"))
 }
 
 tasks.withType<Jar> {

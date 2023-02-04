@@ -15,7 +15,7 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 
-    setOf("armeria", "armeria-grpc", "armeria-bom", "armeria-logback").forEach {
+    setOf("armeria", "armeria-grpc", "armeria-grpc-protocol", "armeria-bom", "armeria-logback").forEach {
         implementation("com.linecorp.armeria:${it}:${armeriaVersion}")
     }
 
@@ -27,6 +27,14 @@ dependencies {
     runtimeOnly("org.slf4j:slf4j-simple:1.7.36")
 
     testImplementation("com.linecorp.armeria:armeria-junit5:${armeriaVersion}")
+}
+
+sourceSets {
+    main {
+        kotlin {
+            srcDir("src/main/kotlin")
+        }
+    }
 }
 
 graalvmNative {
