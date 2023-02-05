@@ -1,34 +1,4 @@
 import com.google.protobuf.gradle.id
-import java.io.ByteArrayOutputStream
-
-fun getPluginPath(name: String): String {
-    val winCommands = "C:\\tools\\vcpkg\\installed\\x64-windows\\tools\\grpc\\grpc_cpp_plugin.exe"
-    val linCommands = "which grpc_${name}_plugin"
-
-    val isWindows = org.apache.tools.ant.taskdefs.condition.Os.isFamily(org.apache.tools.ant.taskdefs.condition.Os.FAMILY_WINDOWS)
-
-    val commands = if (isWindows) {
-        println("Found GRPC plugin for $name at $winCommands")
-        return winCommands
-    } else linCommands
-
-    val byteOut = ByteArrayOutputStream()
-
-    project.exec {
-        commandLine = commands.split(" ")
-        standardOutput = byteOut
-    }
-
-    val path = byteOut.toString().trim()
-
-    if (path.isEmpty()) {
-        println("Failed to locate GRPC plugin for $name")
-    } else {
-        println("Found GRPC plugin for $name at $winCommands")
-    }
-
-    return path
-}
 
 val javaVersion = JavaVersion.VERSION_17.toString()
 
@@ -89,9 +59,6 @@ protobuf {
         id("grpckt") {
             artifact = "io.grpc:protoc-gen-grpc-kotlin:1.3.0:jdk8@jar"
         }
-        id("grpc_cpp") {
-            path = getPluginPath("cpp")
-        }
     }
 
     generateProtoTasks {
@@ -102,9 +69,6 @@ protobuf {
                 }
                 id("grpckt") {
                     outputSubDir = "kotlin"
-                }
-                id("grpc_cpp") {
-                    outputSubDir = "cpp"
                 }
             }
         }

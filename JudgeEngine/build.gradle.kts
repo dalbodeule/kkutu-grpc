@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.io.ByteArrayOutputStream
 
 plugins {
     `cpp-application`
@@ -6,16 +7,42 @@ plugins {
 	`visual-studio`
 }
 
-application {
-    targetMachines.set(listOf(machines.linux.x86_64, machines.windows.x86_64))
+fun runCommands(command: String): String {
+    val byteOut = ByteArrayOutputStream()
 
-    dependencies {
-        // implementation(project(":protobuf:cpp"))
+    project.exec {
+        commandLine = command.split(" ")
+        standardOutput = byteOut
     }
+
+    return byteOut.toString().trim()
 }
 
-val vcpkgIncludePath = "C:\\tools\\vcpkg\\installed\\x64-windows\\include"
-val vcpkgLibPath = "C:\\tools\\vcpkg\\installed\\x64-windows\\lib"
+fun getPath(name: String): String {
+    val winCommands = "where $name"
+    val linCommands = "which $name"
+
+    val isWindows = org.apache.tools.ant.taskdefs.condition.Os.isFamily(org.apache.tools.ant.taskdefs.condition.Os.FAMILY_WINDOWS)
+
+    val commands = if (isWindows) winCommands else linCommands
+
+    val path = runCommands(commands)
+
+    if (path.isEmpty()) {
+        println("Failed to locate path for $name")
+    } else {
+        println("Found path for $name at $commands")
+    }
+
+    return path
+}
+
+application {
+    targetMachines.set(listOf(machines.linux.x86_64))
+
+    dependencies {
+    }
+}
 
 tasks.withType<Jar> {
     enabled = false
@@ -28,27 +55,43 @@ tasks.withType<JavaCompile> {
     enabled = false
 }
 
+task("runProtoc") {
+    group = "build"
+    description = "build protobuf with :protobuf projects"
+
+    dependsOn(":protobuf:assemble")
+
+    runCommands("protoc -I ${rootProject.rootDir}/protobuf/src/main/proto --cpp_out=${project.projectDir}/src/main/headers ${rootProject.rootDir}/protobuf/src/main/proto/*.proto")
+}
+
 tasks.withType<CppCompile> {
+    dependsOn("runProtoc")
 
     macros["NDEBUG"] = null
+
+    val includePath = "${rootProject.property("vcpkg.includePath")}"
 
     compilerArgs.add("-W3")
     compilerArgs.add("-EHsc")
     compilerArgs.addAll(toolChain.map {
-        when (it) {
+        return@map when (it) {
             is Gcc, is Clang -> listOf("-O2", "-fno-access-control")
-            is VisualCpp -> listOf("/Zi", "/I$vcpkgIncludePath")
+            is VisualCpp -> throw Error("This project required GCC or CLang")
             else -> listOf()
         }
     })
 }
 
 tasks.withType<LinkExecutable> {
+    val libPath = "${rootProject.property("vcpkg.libPath")}"
+
+    println(libPath)
+
     linkerArgs.addAll(toolChain.map {
-        if (toolChain is VisualCpp) {
-            return@map listOf("/LIBPATH:$vcpkgLibPath", "msapi.lib")
+        return@map if (it is VisualCpp) {
+            throw Error("This project required GCC or CLang")
         } else {
-            return@map listOf("")
+            listOf("")
         }
     })
 }

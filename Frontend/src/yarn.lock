@@ -4650,6 +4650,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"google-protobuf@npm:3.15.8":
+  version: 3.15.8
+  resolution: "google-protobuf@npm:3.15.8"
+  checksum: f95f4d8203e94a6cf1983c8ad3b93ebe5e2b7408a39b5925332cce82e4a261cf9308a01458cd0887b78ccae885afcdff8e7a96da7c54c34baada79a84476f7fb
+  languageName: node
+  linkType: hard
+
 "gopd@npm:^1.0.1":
   version: 1.0.1
   resolution: "gopd@npm:1.0.1"
@@ -4673,6 +4680,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"grpc-web@npm:^1.4.2":
+  version: 1.4.2
+  resolution: "grpc-web@npm:1.4.2"
+  checksum: 624bb14bb3a5bcd5354cce6b4873b90b574a32227abdc29f241b2dbc81363492f49dcbd257a47963bdd8e61a49b69303bd03087f42d939d48148b4764bf2a2e6
+  languageName: node
+  linkType: hard
+
+"grpc_tools_node_protoc_ts@npm:^5.3.3":
+  version: 5.3.3
+  resolution: "grpc_tools_node_protoc_ts@npm:5.3.3"
+  dependencies:
+    google-protobuf: 3.15.8
+    handlebars: 4.7.7
+  bin:
+    protoc-gen-ts: bin/protoc-gen-ts
+  checksum: cd98b10fdd484e4a02e12036bf208c7cb82a9a454939f337acbd388983b51fdf83f3d755ddf7720dbb20626b61d1731edeafa2107f5633613f1db3f2ae48c164
+  languageName: node
+  linkType: hard
+
 "gzip-size@npm:^7.0.0":
   version: 7.0.0
   resolution: "gzip-size@npm:7.0.0"
@@ -4691,6 +4717,24 @@ __metadata:
     radix3: ^1.0.0
     ufo: ^1.0.1
   checksum: aa3be7d031d10758f3d2b7c8c81187d4b87629334be4a28a3fd31bf51e0986323f592bfc39086c2e397e9e164dfbc25fb497db04eaf8ef076f0d1453590e8710
+  languageName: node
+  linkType: hard
+
+"handlebars@npm:4.7.7":
+  version: 4.7.7
+  resolution: "handlebars@npm:4.7.7"
+  dependencies:
+    minimist: ^1.2.5
+    neo-async: ^2.6.0
+    source-map: ^0.6.1
+    uglify-js: ^3.1.4
+    wordwrap: ^1.0.0
+  dependenciesMeta:
+    uglify-js:
+      optional: true
+  bin:
+    handlebars: bin/handlebars
+  checksum: 1e79a43f5e18d15742977cb987923eab3e2a8f44f2d9d340982bcb69e1735ed049226e534d7c1074eaddaf37e4fb4f471a8adb71cddd5bc8cf3f894241df5cee
   languageName: node
   linkType: hard
 
@@ -6003,7 +6047,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:^1.2.0, minimist@npm:^1.2.6":
+"minimist@npm:^1.2.0, minimist@npm:^1.2.5, minimist@npm:^1.2.6":
   version: 1.2.7
   resolution: "minimist@npm:1.2.7"
   checksum: 7346574a1038ca23c32e02252f603801f09384dd1d78b69a943a4e8c2c28730b80e96193882d3d3b22a063445f460e48316b29b8a25addca2d7e5e8f75478bec
@@ -6206,6 +6250,13 @@ __metadata:
   version: 0.6.3
   resolution: "negotiator@npm:0.6.3"
   checksum: b8ffeb1e262eff7968fc90a2b6767b04cfd9842582a9d0ece0af7049537266e7b2506dfb1d107a32f06dd849ab2aea834d5830f7f4d0e5cb7d36e1ae55d021d9
+  languageName: node
+  linkType: hard
+
+"neo-async@npm:^2.6.0":
+  version: 2.6.2
+  resolution: "neo-async@npm:2.6.2"
+  checksum: deac9f8d00eda7b2e5cd1b2549e26e10a0faa70adaa6fdadca701cc55f49ee9018e427f424bac0c790b7c7e2d3068db97f3093f1093975f2acb8f8818b936ed9
   languageName: node
   linkType: hard
 
@@ -7882,6 +7933,8 @@ __metadata:
     eslint-plugin-nuxt: ^4.0.0
     eslint-plugin-prettier: ^4.2.1
     eslint-plugin-vue: ^9.9.0
+    grpc-web: ^1.4.2
+    grpc_tools_node_protoc_ts: ^5.3.3
     nuxt: ^3.1.0
     prettier: ^2.8.3
     tw-elements: ^1.0.0-alpha13
@@ -8848,6 +8901,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"uglify-js@npm:^3.1.4":
+  version: 3.17.4
+  resolution: "uglify-js@npm:3.17.4"
+  bin:
+    uglifyjs: bin/uglifyjs
+  checksum: 7b3897df38b6fc7d7d9f4dcd658599d81aa2b1fb0d074829dd4e5290f7318dbca1f4af2f45acb833b95b1fe0ed4698662ab61b87e94328eb4c0a0d3435baf924
+  languageName: node
+  linkType: hard
+
 "ultrahtml@npm:^1.2.0":
   version: 1.2.0
   resolution: "ultrahtml@npm:1.2.0"
@@ -9380,6 +9442,13 @@ __metadata:
   version: 1.2.3
   resolution: "word-wrap@npm:1.2.3"
   checksum: 30b48f91fcf12106ed3186ae4fa86a6a1842416df425be7b60485de14bec665a54a68e4b5156647dec3a70f25e84d270ca8bc8cd23182ed095f5c7206a938c1f
+  languageName: node
+  linkType: hard
+
+"wordwrap@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "wordwrap@npm:1.0.0"
+  checksum: 2a44b2788165d0a3de71fd517d4880a8e20ea3a82c080ce46e294f0b68b69a2e49cff5f99c600e275c698a90d12c5ea32aff06c311f0db2eb3f1201f3e7b2a04
   languageName: node
   linkType: hard
 

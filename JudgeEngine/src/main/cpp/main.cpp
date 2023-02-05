@@ -5,13 +5,7 @@
 
 #include <grpc/grpc.h>
 
-#include "test.grpc.pb.cc"
-
-using grpc::Channel;
-using grpc::ClientContext;
-using grpc::ClientReaderWriter;
-using grpc::ClientWriter;
-using grpc::Status;
+#include "test.pb.h"
 
 int main(int argc, char** argv) {
     std::cout << "Hello World \n" << std::endl;

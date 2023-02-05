@@ -9,7 +9,7 @@
 
 rootProject.name = "OnlineJudge"
 
-include("Backend", "protobuf", "protobuf:cpp", "Frontend", "JudgeEngine")
+include("Backend", "protobuf", "Frontend", "JudgeEngine")
 
 pluginManagement {
     repositories {

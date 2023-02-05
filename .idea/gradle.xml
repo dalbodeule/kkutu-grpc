@@ -15,7 +15,6 @@
             <option value="$PROJECT_DIR$/Frontend" />
             <option value="$PROJECT_DIR$/JudgeEngine" />
             <option value="$PROJECT_DIR$/protobuf" />
-            <option value="$PROJECT_DIR$/protobuf/cpp" />
           </set>
         </option>
       </GradleProjectSettings>
