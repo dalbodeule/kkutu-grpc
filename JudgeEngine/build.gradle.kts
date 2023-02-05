@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream
 plugins {
     `cpp-application`
     cpp
-	`visual-studio`
 }
 
 fun runCommands(command: String): String {
@@ -19,12 +18,7 @@ fun runCommands(command: String): String {
 }
 
 fun getPath(name: String): String {
-    val winCommands = "where $name"
-    val linCommands = "which $name"
-
-    val isWindows = org.apache.tools.ant.taskdefs.condition.Os.isFamily(org.apache.tools.ant.taskdefs.condition.Os.FAMILY_WINDOWS)
-
-    val commands = if (isWindows) winCommands else linCommands
+    val commands = "which $name"
 
     val path = runCommands(commands)
 
