@@ -7,12 +7,14 @@ import com.linecorp.armeria.common.grpc.protocol.GrpcHeaderNames
 import com.linecorp.armeria.server.Server
 import com.linecorp.armeria.server.cors.CorsService
 import com.linecorp.armeria.server.grpc.GrpcService
+import com.linecorp.armeria.server.logging.AccessLogWriter
 import com.linecorp.armeria.server.logging.LoggingService
 import io.grpc.protobuf.services.ProtoReflectionService
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import space.mori.onlinejudge.backend.services.TestService
 
-private val logger = LoggerFactory.getLogger("Backend")
+val logger: Logger = LoggerFactory.getLogger("Backend")
 
 fun main() {
     val server = newServer()
@@ -58,5 +60,6 @@ fun newServer(port: Int = 50000): Server {
         .service(grpcService, grpcCorsSettings, LoggingService.newDecorator())
         .serviceUnder("/docs", BackendDocService.docService
             .decorate(corsSettings).decorate(LoggingService.newDecorator()))
+        .accessLogWriter(AccessLogWriter.common(), true)
         .build()
 }

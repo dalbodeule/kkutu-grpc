@@ -1,5 +1,6 @@
 .gradle
 /build/
+/cmake-build-debug/
 
 # Ignore Gradle GUI config
 gradle-app.setting
