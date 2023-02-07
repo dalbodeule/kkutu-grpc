@@ -12,12 +12,13 @@
 - [x] `yarn` (to Frontend)
 - [x] `protobuf` on `PATH` (to Frontend, JudgeEngine)
 - [x] `Linux` systems. `JudgeEngine` is Linux dependent.
+- [x] `protobuf` and `grpc_cpp_plugin` with `sudo apt install libprotobuf-dev libgrpc++-dev`
 
 ## How to build?
 
 ### Backend
 - [x] gradlew :backend:build
-- [x] gradlew :backend:nativeBuild (in vcvars.bat on Windows)
+- [x] gradlew :backend:nativeBuild (if using Windows, use vcvars.bat)
 
 ### Frontend
 - [x] gradlew :frontend:build

@@ -1,9 +1,10 @@
+
+import com.github.tomtzook.gcmake.tasks.CmakeBuildTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.ByteArrayOutputStream
 
 plugins {
-    `cpp-application`
-    cpp
+    id("io.github.tomtzook.gradle-cmake") version "1.2.2"
 }
 
 fun runCommands(command: String): String {
@@ -17,25 +18,21 @@ fun runCommands(command: String): String {
     return byteOut.toString().trim()
 }
 
-fun getPath(name: String): String {
-    val commands = "which $name"
-
-    val path = runCommands(commands)
-
-    if (path.isEmpty()) {
-        println("Failed to locate path for $name")
-    } else {
-        println("Found path for $name at $commands")
-    }
-
-    return path
+machines.customMachines.register("linux-x86_64") {
+    this.toolchainFile.set(project.file("x86_64-linux-gnu-gcc.cmake"))
 }
 
-application {
-    targetMachines.set(listOf(machines.linux.x86_64))
-
-    dependencies {
+cmake {
+    targets.create("JudgeEngine") {
+        cmakeLists.set(file("${projectDir}/CMakeLists.txt"))
+        targetMachines.add(machines.host)
     }
+}
+
+tasks.withType<CmakeBuildTask> {
+    dependsOn("copyProto")
+
+    args.add("-j 10")
 }
 
 tasks.withType<Jar> {
@@ -49,43 +46,28 @@ tasks.withType<JavaCompile> {
     enabled = false
 }
 
-task("runProtoc") {
+tasks.register("clean") {
     group = "build"
-    description = "build protobuf with :protobuf projects"
+    description = "Clean build folders"
 
-    dependsOn(":protobuf:assemble")
-
-    runCommands("protoc -I ${rootProject.rootDir}/protobuf/src/main/proto --cpp_out=${project.projectDir}/src/main/headers ${rootProject.rootDir}/protobuf/src/main/proto/*.proto")
+    dependsOn("cmakeClean")
 }
 
-tasks.withType<CppCompile> {
-    dependsOn("runProtoc")
+tasks.register("copyProto") {
+    group = "build"
+    description = "Copy .proto files from :protobuf subprojects"
 
-    macros["NDEBUG"] = null
+    dependsOn(":protobuf:build")
 
-    val includePath = "${rootProject.property("vcpkg.includePath")}"
-
-    compilerArgs.add("-W3")
-    compilerArgs.add("-EHsc")
-    compilerArgs.addAll(toolChain.map {
-        return@map when (it) {
-            is Gcc, is Clang -> listOf("-O2", "-fno-access-control")
-            is VisualCpp -> throw Error("This project required GCC or CLang")
-            else -> listOf()
-        }
-    })
+    copy {
+        from(fileTree("${rootDir}/protobuf/src/main/proto").include("**/*.proto"))
+        into("${projectDir}/proto/myproto")
+    }
 }
 
-tasks.withType<LinkExecutable> {
-    val libPath = "${rootProject.property("vcpkg.libPath")}"
+tasks.register("build") {
+    group = "build"
+    description = "Build this projects"
 
-    println(libPath)
-
-    linkerArgs.addAll(toolChain.map {
-        return@map if (it is VisualCpp) {
-            throw Error("This project required GCC or CLang")
-        } else {
-            listOf("")
-        }
-    })
+    dependsOn("cmakeBuild")
 }

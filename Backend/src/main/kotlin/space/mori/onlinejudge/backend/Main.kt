@@ -24,7 +24,7 @@ fun main() {
     logger.info("Server has been started. http://${"127.0.0.1"}:${server.activeLocalPort()}/docs")
 }
 
-fun newServer(port: Int = 8080): Server {
+fun newServer(port: Int = 50000): Server {
     val sb = Server.builder()
 
     val grpcService = GrpcService.builder()
