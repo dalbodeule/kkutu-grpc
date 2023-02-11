@@ -34,6 +34,7 @@ tasks.withType<NpmTask> {
 tasks.register<YarnTask>("lint") {
     args.set(setOf("run", "lint"))
     dependsOn(tasks.yarnSetup)
+    dependsOn(tasks.yarn)
 
     outputs.upToDateWhen { true }
 }
@@ -50,7 +51,7 @@ tasks.register<NpxTask>("runProtoc") {
     description = "build protobuf with :protobuf projects"
 
     dependsOn(":protobuf:assemble")
-    dependsOn("npmInstall")
+    dependsOn(tasks.yarn)
 
     val targetFolder = "${projectDir}/src/assets/js/grpc"
 

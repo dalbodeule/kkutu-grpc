@@ -29,7 +29,7 @@ endif()
 message(STATUS "===========")
 
 set(PROTO_FILES
-    myproto/test.proto
+    ${CMAKE_CURRENT_SOURCE_DIR}/myproto/test.proto
 )
 
 add_library(myproto ${PROTO_FILES})
@@ -37,6 +37,8 @@ add_library(myproto ${PROTO_FILES})
 message(STATUS "==========")
 message(STATUS ${GRPCPP_LIBRARIES})
 message(STATUS ${PROTOBUF_LIBRARIES})
+message(STATUS "==========")
+message(STATUS ${PROTO_FILES})
 message(STATUS "==========")
 
 protobuf_generate(TARGET myproto LANGUAGE cpp)
