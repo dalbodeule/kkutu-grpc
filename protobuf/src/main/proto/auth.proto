@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package space.mori.kkutukotlin.protobuf;
+option java_outer_classname = "Auth";
+
+service AuthService {
+  rpc login(LoginRequest) returns (LoginResponse);
+}
+
+message LoginRequest {
+  string greeting = 1;
+}
+
+message LoginResponse {
+  string greeting = 1;
+}

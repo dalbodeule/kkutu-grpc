@@ -7,14 +7,19 @@
  * in the user manual at https://docs.gradle.org/7.6/userguide/multi_project_builds.html
  */
 
-rootProject.name = "OnlineJudge"
+rootProject.name = "KKuTuKotlin"
 
-include("Backend", "protobuf", "Frontend", "JudgeEngine")
+include("Backend", "protobuf", "Frontend", "AuthServer")
 
 pluginManagement {
     repositories {
         mavenCentral()
         gradlePluginPortal()
         maven { url = uri("https://maven.covers1624.net") }
+        maven { url = uri("https://repo.spring.io/plugins-release/") }
     }
 }
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
+}
+include("AuthServer")

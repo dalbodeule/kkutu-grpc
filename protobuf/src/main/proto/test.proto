@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package space.mori.onlinejudge.protobuf;
+package space.mori.kkutukotlin.protobuf;
 option java_outer_classname = "Test";
 
 service TestService {

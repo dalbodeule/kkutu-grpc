@@ -4,16 +4,14 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../ProgramData/chocolatey/lib/gradle/tools/gradle-7.6" />
-        <option name="gradleJvm" value="#JAVA_HOME" />
+        <option name="gradleJvm" value="graalvm-17" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/AuthServer" />
             <option value="$PROJECT_DIR$/Backend" />
             <option value="$PROJECT_DIR$/Frontend" />
-            <option value="$PROJECT_DIR$/JudgeEngine" />
             <option value="$PROJECT_DIR$/protobuf" />
           </set>
         </option>

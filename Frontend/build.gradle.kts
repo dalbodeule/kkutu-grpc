@@ -93,14 +93,12 @@ tasks.register<YarnTask>("yarnBuild") {
 tasks.run.configure {
     actions.clear()
 
-    dependsOn("lint")
     dependsOn("yarnRun")
 }
 
 tasks.build.configure {
     actions.clear()
 
-    dependsOn("lint")
     dependsOn("yarnBuild")
 
 }

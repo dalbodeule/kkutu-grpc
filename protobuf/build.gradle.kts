@@ -15,15 +15,16 @@ plugins {
 }
 
 dependencies {
-    implementation("com.google.api.grpc:proto-google-common-protos:2.14.0")
+    implementation("com.google.api.grpc:proto-google-common-protos:2.33.0")
 
     implementation(kotlin("stdlib-jdk8"))
 
-    implementation("io.grpc:grpc-stub:1.52.1")
-    implementation("io.grpc:grpc-protobuf:1.52.1")
-    implementation("io.grpc:grpc-kotlin-stub:1.3.0")
+    implementation("io.grpc:grpc-stub:1.61.1")
+    implementation("io.grpc:grpc-protobuf:1.61.1")
+    implementation("io.grpc:grpc-kotlin-stub:1.4.1")
 
     implementation("javax.annotation:javax.annotation-api:1.3.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1-Beta")
 }
 
 sourceSets {
@@ -46,7 +47,7 @@ tasks.withType<ProcessResources> {
     enabled = false
 }
 
-val protocVersion = "3.21.12"
+val protocVersion = "3.25.2"
 
 protobuf {
     protoc {
@@ -54,10 +55,10 @@ protobuf {
     }
     plugins {
         id("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.52.1"
+            artifact = "io.grpc:protoc-gen-grpc-java:1.61.1"
         }
         id("grpckt") {
-            artifact = "io.grpc:protoc-gen-grpc-kotlin:1.3.0:jdk8@jar"
+            artifact = "io.grpc:protoc-gen-grpc-kotlin:1.4.1:jdk8@jar"
         }
     }
 

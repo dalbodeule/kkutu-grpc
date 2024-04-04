@@ -29,4 +29,7 @@ node_modules
 dist
 grpc/
 
+.env
+*.sqlite3
+
 JudgeEngine/proto/**/*.proto

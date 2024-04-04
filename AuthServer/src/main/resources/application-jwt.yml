@@ -1,0 +1,3 @@
+jwt:
+  secret: ${JWT_PASS}
+  expire: 3600

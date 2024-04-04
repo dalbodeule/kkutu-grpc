@@ -1,6 +1,6 @@
 plugins {
-    val kotlinVersion: String = "1.8.10"
-    val protobufVersion: String = "0.9.2"
+    val kotlinVersion: String = "1.9.22"
+    val protobufVersion: String = "0.9.4"
 
     kotlin("jvm") version kotlinVersion
     `java-library`

@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package space.mori.kkutukotlin.protobuf;
+option java_outer_classname = "kkutu";
+
+import "google/protobuf/empty.proto";
+
+service ChatService {
+  rpc chat(google.protobuf.Empty) returns (stream ChatResponse);
+  rpc sendMessage(ChatRequest) returns (google.protobuf.Empty);
+}
+
+message User {
+  string uid = 1;
+  string username = 2;
+}
+
+message ChatRequest {
+  User user = 1;
+  string msg = 2;
+};
+
+message ChatResponse {
+  User user = 1;
+  string msg = 2;
+}
