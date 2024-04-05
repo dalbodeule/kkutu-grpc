@@ -2,8 +2,11 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/AuthServer/src/main/kotlin/space/mori/kkutukotlin/authserver/controller/UserInfoController.kt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Backend/src/main/kotlin/space/mori/kkutukotlin/backend/services/KkutuService.kt" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Frontend/src/layouts/default.vue" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Frontend/src/pages/index.vue" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Frontend/src/pages/login.vue" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Frontend/src/public/kkutu_builtin.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/JudgeEngine/build.gradle.kts" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/JudgeEngine/build/tmp/compileDebugWindowsCpp/output.txt" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/JudgeEngine/main.cpp" charset="UTF-8" />

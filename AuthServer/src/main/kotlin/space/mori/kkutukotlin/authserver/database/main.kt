@@ -27,9 +27,10 @@ class Database {
     }
 
     fun connect() {
-        val databaseUrl = "jdbc:mariadb://$host:$port/$database"
+        // val databaseUrl = "jdbc:mariadb://$host:$port/$database"
+        val databaseUrl = "jdbc:sqlite:../database.sqlite3"
         println("h$host u$user")
-        Database.connect(url = databaseUrl, user = user, password = password, driver = "org.mariadb.jdbc.Driver")
+        Database.connect(url = databaseUrl )//, user = user, password = password, driver = "org.mariadb.jdbc.Driver")
         transaction {
             SchemaUtils.createMissingTablesAndColumns(UserTable)
         }

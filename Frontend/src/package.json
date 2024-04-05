@@ -11,11 +11,14 @@
   },
   "dependencies": {
     "@nuxtjs/auth-next": "5.0.0-1667386184.dfbbb54",
+    "@pinia/nuxt": "^0.5.1",
     "cookie-parser": "^1.4.6",
+    "delay": "^6.0.0",
     "express-session": "^1.18.0",
     "nuxt": "^3.11.1",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
+    "pinia": "^2.1.7",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   }

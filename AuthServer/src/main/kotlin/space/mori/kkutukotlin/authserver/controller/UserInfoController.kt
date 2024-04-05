@@ -42,7 +42,8 @@ class UserInfoController {
             "id" to (user?.id.toString() ?: ""),
             "vendor" to (user?.vendor ?: ""),
             "profileImageUrl" to (user?.profileImage ?: ""),
-            "nickname" to (user?.nickname ?: "")
+            "nickname" to (user?.nickname ?: ""),
+            "token" to token
         )
 
         return ResponseEntity.ok(userInfo)

@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
+import org.springframework.http.ResponseCookie
 import org.springframework.security.core.Authentication
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
@@ -52,11 +53,14 @@ class JwtAuthenticationSuccessHandler(
             .compact()
 
         // Set JWT token in cookie
-        val cookie = Cookie("JWT_TOKEN", token)
-        cookie.path="/"
-        cookie.isHttpOnly = true
-        cookie.maxAge = jwtExpirationTime.toInt()
-        response.addCookie(cookie)
+        val cookie = ResponseCookie.from("JWT_TOKEN", token)
+            .path("/")
+            .sameSite("None")
+            .secure(false)
+            .maxAge(jwtExpirationTime)
+            .sameSite("Lax")
+            .build()
+        response.setHeader("Set-Cookie", cookie.toString())
 
         // Redirect to FRONT_URL
         response.sendRedirect(frontUrl)

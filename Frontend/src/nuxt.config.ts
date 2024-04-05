@@ -6,5 +6,13 @@ export default defineNuxtConfig({
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
     }
+  },
+  modules: [
+    '@pinia/nuxt'
+  ],
+  runtimeConfig: {
+    public: {
+      AUTH_SERVER: process.env.AUTH_SERVER || 'http://localhost:8080'
+    }
   }
 })

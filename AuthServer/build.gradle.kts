@@ -1,6 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 import org.springframework.boot.gradle.tasks.run.BootRun
+import java.util.*
 
 plugins {
     kotlin("jvm")
@@ -9,13 +11,14 @@ plugins {
     id("org.springframework.boot") version "2.6.4"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     id("org.graalvm.buildtools.native") version "0.10.1"
+    kotlin("plugin.spring") version "1.9.23"
 }
 
 application {
     mainClass.set("${"${project.group}.${rootProject.name}.${project.name}".lowercase()}.MainKt")
 }
 
-java.sourceCompatibility = JavaVersion.VERSION_21
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -46,6 +49,10 @@ dependencies {
     // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
     implementation("org.mariadb.jdbc:mariadb-java-client:3.3.3")
 
+    // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+    implementation("org.xerial:sqlite-jdbc:3.45.2.0")
+
+
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 }
@@ -56,15 +63,24 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-graalvmNative {
-    binaries {
-        binaries.all {
-            resources.autodetection { JavaVersion.VERSION_17 }
-        }
-        named("main") {
-            // Main options
-            useFatJar.set(true)
-            sharedLibrary.set(false)
-        }
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs += "-Xjsr305=strict"
+        jvmTarget = "17"
+    }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
+tasks.withType<BootBuildImage> {
+    val osName = System.getProperty("os.name").lowercase()
+    val arch = System.getProperty("os.arch")
+
+    val runningOnM1Mac = "mac" in osName && arch == "aarch64"
+    if (runningOnM1Mac) {
+        builder = "dashaun/builder:tiny"
+        environment = mapOf("BP_NATIVE_IMAGE" to "true")
     }
 }
