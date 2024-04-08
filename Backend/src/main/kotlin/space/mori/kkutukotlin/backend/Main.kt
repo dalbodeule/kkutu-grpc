@@ -12,6 +12,7 @@ import com.linecorp.armeria.server.logging.LoggingService
 import io.grpc.protobuf.services.ProtoReflectionService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import space.mori.kkutukotlin.backend.auth.JwtTokenInterceptor
 import space.mori.kkutukotlin.backend.services.KkutuService
 import space.mori.kkutukotlin.backend.services.TestService
 
@@ -19,7 +20,7 @@ val logger: Logger = LoggerFactory.getLogger("Backend")
 
 fun main() {
     val server = newServer()
-    space.mori.kkutukotlin.backend.database.main()
+    // space.mori.kkutukotlin.backend.database.main()
 
     server.closeOnJvmShutdown()
 
@@ -34,6 +35,7 @@ fun newServer(port: Int = 50000): Server {
     val grpcService = GrpcService.builder()
         .addService(TestService())
         .addService(KkutuService())
+        .intercept(JwtTokenInterceptor())
         .addService(ProtoReflectionService.newInstance())
         .supportedSerializationFormats(GrpcSerializationFormats.values())
         .enableUnframedRequests(true)

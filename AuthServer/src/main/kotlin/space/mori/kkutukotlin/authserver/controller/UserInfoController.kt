@@ -51,6 +51,10 @@ class UserInfoController {
 
     private fun getTokenFromCookie(request: HttpServletRequest): String {
         val cookie = WebUtils.getCookie(request, "JWT_TOKEN")
-        return cookie?.value ?: throw IllegalStateException("JWT_TOKEN cookie not found")
+        val header = request.getHeader("Authorization")
+        return cookie?.value ?: header.let {
+            if(it.startsWith("Bearer ")) return@let header.substring(7)
+            else null
+        } ?: throw IllegalStateException("JWT_TOKEN cookie not found")
     }
 }

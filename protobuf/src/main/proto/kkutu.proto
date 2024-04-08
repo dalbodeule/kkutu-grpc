@@ -6,21 +6,28 @@ option java_outer_classname = "kkutu";
 import "google/protobuf/empty.proto";
 
 service ChatService {
-  rpc chat(google.protobuf.Empty) returns (stream ChatResponse);
+  rpc chat(ChatIn) returns (stream ChatResponse);
   rpc sendMessage(ChatRequest) returns (google.protobuf.Empty);
 }
 
 message User {
   string uid = 1;
   string username = 2;
+  string vendor = 3;
+  string profile = 4;
 }
 
 message ChatRequest {
-  User user = 1;
+  uint32 roomId = 1;
   string msg = 2;
 };
 
 message ChatResponse {
-  User user = 1;
+  uint32 roomId = 1;
   string msg = 2;
+  User user = 3;
+}
+
+message ChatIn {
+  uint32 roomId = 1;
 }

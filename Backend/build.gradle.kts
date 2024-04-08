@@ -32,6 +32,8 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
     implementation("org.mariadb.jdbc:mariadb-java-client:3.3.3")
+
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
     
     setOf(
         "armeria",
